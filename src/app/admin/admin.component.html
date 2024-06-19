@@ -1,0 +1,63 @@
+
+<div class="container" style="margin-top: 20px; margin-bottom: 50px;">
+  <div class="row">
+    <h3>List a new job</h3>
+  </div>
+  <div class="row">
+      <a class="btn btn-primary" (click)="toggleTextVisibility()">Add New Job</a>
+
+    <div *ngIf="isTextVisible" style="margin-top: 20px;">
+    <form id="collapseExample" [formGroup]="jobForm" (ngSubmit)="addOrUpdateJob()">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" id="title" formControlName="title" class="form-control">
+        <div *ngIf="jobForm.get('title')!.invalid && (jobForm.get('title')!.touched || jobForm.get('title')!.dirty)" class="text-danger">
+          <div *ngIf="jobForm.get('title')!.errors!.required">Title is required.</div>
+          <div *ngIf="jobForm.get('title')!.errors!.minlength">Title must be at least 3 characters long.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" formControlName="description" class="form-control"></textarea>
+        <div *ngIf="jobForm.get('description')!.invalid && (jobForm.get('description')!.touched || jobForm.get('description')!.dirty)" class="text-danger">
+          <div *ngIf="jobForm.get('description')!.errors!.required">Description is required.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="company">Company</label>
+        <input type="text" id="company" formControlName="company" class="form-control">
+        <div *ngIf="jobForm.get('company')!.invalid && (jobForm.get('company')!.touched || jobForm.get('company')!.dirty)" class="text-danger">
+          <div *ngIf="jobForm.get('company')!.errors!.required">Company is required.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="location">Location</label>
+        <input type="text" id="location" formControlName="location" class="form-control">
+        <div *ngIf="jobForm.get('location')!.invalid && (jobForm.get('location')!.touched || jobForm.get('location')!.dirty)" class="text-danger">
+          <div *ngIf="jobForm.get('location')!.errors!.required">Location is required.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="expiryDate">Expiry Date</label>
+        <input type="date" id="expiryDate" formControlName="expiryDate" class="form-control">
+        <div *ngIf="jobForm.get('expiryDate')!.invalid && (jobForm.get('expiryDate')!.touched || jobForm.get('expiryDate')!.dirty)" class="text-danger">
+          <div *ngIf="jobForm.get('expiryDate')!.errors!.required">Expiry Date is required.</div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="jobForm.invalid" >{{ jobId ? 'Update' : 'Add' }} Job</button>
+    </form>
+  </div>
+<hr>
+    <div *ngIf="jobs.length">
+      <div *ngFor="let job of jobs; let i = index">
+        <h3>{{ job.title }}</h3>
+        <p>{{ job.location }}</p>
+        <p>{{ job.description }}</p>
+        <p>{{ job.company }}</p>
+        <p>{{ job.expiryDate }}</p>
+        <button (click)="editJob(i, job)" class="btn btn-secondary">Edit</button>
+        <button (click)="deleteJob(i)" class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

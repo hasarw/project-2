@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row">
+    <h4>Welcome to the job portal. check out the following job listing.</h4>
+  </div>
+  <div class="row">
+    <div class="container">
+      <h2>Job Listings</h2>
+
+      <!-- Dropdowns for filtering -->
+      <div class="filters">
+        <div class="form-group">
+          <label for="location">Filter by Location:</label>
+          <select id="location" class="form-control" [(ngModel)]="selectedLocation" (change)="filterJobs()">
+            <option value="">All Locations</option>
+            <option *ngFor="let location of uniqueLocations" [value]="location">{{ location }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="jobTitle">Filter by Job Title:</label>
+          <select id="jobTitle" class="form-control" [(ngModel)]="selectedJobTitle" (change)="filterJobs()">
+            <option value="">All Job Titles</option>
+            <option *ngFor="let title of uniqueJobTitles" [value]="title">{{ title }}</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Job listings -->
+      <div *ngIf="filteredJobs.length">
+        <div *ngFor="let job of filteredJobs">
+          <h3>{{ job.title }}</h3>
+          <p><i>{{ job.description }}</i></p>
+          <p>{{ job.location }}</p>
+          <p>{{ job.company }}</p>
+          <p>{{ job.expiryDate }}</p>
+          <p><strong>Location:</strong> {{ job.location }}</p>
+          <button class="btn btn-info">Apply</button>
+        </div>
+      </div>
+
+      <div *ngIf="!filteredJobs.length">
+        <p>No jobs found for the selected filters.</p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
